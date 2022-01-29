@@ -2,6 +2,9 @@
 import React from "react";
 import './style.css';
 
+
+
+
 export class Message extends React.Component {
     const
     render() {
