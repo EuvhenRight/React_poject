@@ -6,9 +6,9 @@ import './style.css';
 
 
 export class Message extends React.Component {
-    const
     render() {
+        const { text, onMessageClick, author } = this.props;
         return (
-            <h3 className="header" onClick={this.props.onMessageClick} > TextMessage, {this.props.text}, {this.props.myTexttwo}</h3>)
-    }
-}
+            <span className="header" onClick={onMessageClick}> {author}: {text} </span>)
+    };
+};

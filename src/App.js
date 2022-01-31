@@ -1,34 +1,59 @@
 import logo from './logo.svg';
 import './App.css';
 import { Message } from './components/Message';
-
-const myText = "Hi Man, I am React"
+// import { Counter } from './components/Counter';
+import { useEffect, useState } from 'react';
+import { Form } from './components/Form';
+import { AUTHORS } from './components/utils/constans.js';
 
 function App() {
+  const [messageList, setMessagelist] = useState([]);
+
+  const handleAddMessage = (text) => {
+    const newMes = {
+      text,
+      author: AUTHORS.ME,
+    };
+    setMessagelist((prevMessageList) => [...prevMessageList, newMes]);
+  };
+
+  useEffect(() => {
+    let timeout;
+    if (messageList[messageList.length - 1]?.author === AUTHORS.ME) {
+      timeout = setTimeout(() => {
+        const newMes = {
+          text: "Hey Human",
+          author: AUTHORS.BOT,
+        };
+        setMessagelist((prevMessageList) => [...prevMessageList, newMes]);
+      }, 1500);
+    }
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, [messageList]);
 
   const hanleMessageClick = () => {
-    console.log("Hi!")
-  }
+    console.log()
+  };
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Message onMessageClick={hanleMessageClick} myTexttwo="Hello" text={myText} />
+
+        {messageList.map((message) => (
+          <Message
+            text={message.text}
+            author={message.author}
+            onMessageClick={hanleMessageClick} />
+        ))}
+        <Form onSubmit={handleAddMessage} />
+        {/* {/* <Counter /> *
+        /} */}
       </header>
     </div>
   );
-}
+};
 
 export default App;
