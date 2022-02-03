@@ -1,54 +1,55 @@
 import logo from './logo.svg';
 import './App.css';
-import { Message } from './components/Message';
+// import { Message } from './components/Message';
+import { MessageList } from './components/MessageList';
 // import { Counter } from './components/Counter';
 import { useEffect, useState } from 'react';
-import { Form } from './components/Form';
+// import { Form } from './components/Form';
 import { AUTHORS } from './components/utils/constans.js';
+import { Formnew } from './components/Formnew';
+import { ChatList } from './components/ChatList';
+
+
 
 function App() {
   const [messageList, setMessagelist] = useState([]);
 
   const handleAddMessage = (text) => {
-    const newMes = {
-      text,
-      author: AUTHORS.ME,
-    };
-    setMessagelist((prevMessageList) => [...prevMessageList, newMes]);
+    sendMessage(text, AUTHORS.ME);
   };
 
+  const sendMessage = (text, author) => {
+    const newMes = {
+      text,
+      author,
+      id: `mes - ${Date.now()}`,
+    };
+    setMessagelist((prevMessageList) => [...prevMessageList, newMes]);
+  }
   useEffect(() => {
     let timeout;
     if (messageList[messageList.length - 1]?.author === AUTHORS.ME) {
       timeout = setTimeout(() => {
-        const newMes = {
-          text: "Hey Human",
-          author: AUTHORS.BOT,
-        };
-        setMessagelist((prevMessageList) => [...prevMessageList, newMes]);
-      }, 1500);
+        sendMessage("Hey Human", AUTHORS.BOT);
+      }, 1200)
     }
     return () => {
       clearTimeout(timeout);
     }
   }, [messageList]);
 
-  const hanleMessageClick = () => {
-    console.log()
-  };
+  // const hanleMessageClick = () => {
+  //   console.log()
+  // };
 
   return (
     <div className="App">
       <header className="App-header">
+        <ChatList />
         <img src={logo} className="App-logo" alt="logo" />
+        <MessageList messages={messageList} />
 
-        {messageList.map((message) => (
-          <Message
-            text={message.text}
-            author={message.author}
-            onMessageClick={hanleMessageClick} />
-        ))}
-        <Form onSubmit={handleAddMessage} />
+        <Formnew onSubmit={handleAddMessage} />
         {/* {/* <Counter /> *
         /} */}
       </header>
