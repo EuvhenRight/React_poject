@@ -1,6 +1,9 @@
 import { Message } from "../Message";
 
-export const MessageList = ({ messages }) =>
-    messages.map((message) => (
-        <Message key={message.id} text={message.text} author={message.author} />
+export const MessageList = ({ messages }) => {
+    return messages.map((message) => (
+        <div key={message.id}>
+            <Message text={message.text} author={message.author} />
+        </div>
     ));
+};
