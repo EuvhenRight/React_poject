@@ -1,14 +1,24 @@
 
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../utils/ThemeContext";
 import './style.css';
 
-
-
-
-export class Message extends React.Component {
-    render() {
-        const { text, onMessageClick, author } = this.props;
-        return (
-            <span className="header" onClick={onMessageClick}> {author}: {text} </span>)
-    };
+export const Message = ({ text, author }) => {
+    const { messageColor } = useContext(ThemeContext);
+    return (
+        <div>
+            <span style={{ color: messageColor }}>
+                {author}: {text}
+            </span>
+        </div>
+    );
 };
+
+
+// export class Message extends React.Component {
+//     render() {
+//         const { text, onMessageClick, author } = this.props;
+//         return (
+//             <span className="header" onClick={onMessageClick}> {author}: {text} </span>)
+//     };
+// };
