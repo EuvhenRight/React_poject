@@ -1,13 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
-import { MessageList } from '../MessageList';
-import { AUTHORS } from '../utils/constans.js';
-import { Formnew } from '../Formnew';
-// import { ChatList } from '../ChatList';
-// import { Chat } from '../Chat';
+import React, { useState, useEffect, useRef } from "react";
+import { AUTHORS } from "../utils/constans";
+import { MessageList } from "../MessageList";
+import { Formnew } from "../Formnew";
 
-
-import '../../App.css';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from "react-router-dom";
 
 const chats = [{ id: "chat1" }]
 const messages = {
