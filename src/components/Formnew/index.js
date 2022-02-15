@@ -21,7 +21,9 @@ export const Formnew = ({ onSubmit }) => {
     return (
         <form onSubmit={handleSubmit}>
             <TextField value={value} inputRef={textFocus} onChange={handleChange} />
-            <Button variant="contained">Отправить послание</Button>
-        </ form >
+            <Button variant="contained">
+                <span>Отправить послание</span>
+            </Button>
+        </ form>
     );
 };
