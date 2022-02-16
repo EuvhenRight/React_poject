@@ -1,14 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { AUTHORS } from "../utils/constans";
 import { MessageList } from "../MessageList";
 import { Formnew } from "../Formnew";
 
 import { Navigate, useParams } from "react-router-dom";
+import { selectMessages } from "../../store/messages/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { addMessage } from "../../store/messages/actions";
 
 
-export function Chat({ messages, addMessage }) {
-    const params = useParams();
-    const { chatId } = params;
+export function Chat() {
+    const { chatId } = useParams();
+    // const { chatId } = params;
+
+    const messages = useSelector(selectMessages);
+    const dispatch = useDispatch();
+
+    // const messagesEnd = useRef();
 
 
     const handleAddMessage = (text) => {
@@ -21,7 +29,7 @@ export function Chat({ messages, addMessage }) {
             author,
             id: `mes - ${Date.now()}`,
         };
-        addMessage(chatId, newMes);
+        dispatch(addMessage(chatId, newMes));
     };
 
     useEffect(() => {
