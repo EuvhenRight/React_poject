@@ -7,6 +7,8 @@ import { ChatList } from "../ChatList";
 import { Profile } from "../Profile";
 import { useDispatch, useSelector } from "react-redux";
 import { addChat, deleteChat } from "../../store/chats/actions";
+import { selectMessages } from "../../store/messages/selector";
+import { addMessage } from "../../store/messages/actions";
 
 
 const Home = () => <h2>HOME PAGE</h2>;
@@ -31,45 +33,8 @@ const iniMessages = iniChats.reduce((acc, el) => {
 }, {});
 
 export const Router = () => {
-    // const [chatList, setChatList] = useState(iniChats);
-    const [messages, setMessages] = useState(iniMessages);
+
     const [messageColor, setMessageColor] = useState("blue");
-
-    const chatList = useSelector(state => state.chats);
-    const dispatch = useDispatch();
-
-    const handleAddMessage = (chatId, newMes) => {
-        setMessages((prevMessageList) => ({
-            ...prevMessageList,
-            [chatId]: [...prevMessageList[chatId], newMes],
-        }));
-    };
-    const handleAddChat = (newChatName) => {
-        const newId = `chat-${Date.now()}`;
-
-        // const newChat = {
-        //     id: newId,
-        //     name: newChatName,
-        // };
-
-        dispatch(addChat(newId, newChatName));
-        // setChatList((prevChatList) => [...prevChatList, newChat]);
-        setMessages((prevMessages) => ({
-            ...prevMessages,
-            [newId]: [],
-        }));
-    };
-    const handleDeleteChat = (idToDelete) => {
-
-        dispatch(deleteChat(idToDelete));
-        // setChatList(prevChatList => prevChatList.filter(chat => chat.id !== idToDelete));
-        setMessages((prevMessages) => {
-            const newMes = { ...prevMessages };
-
-            delete newMes[idToDelete];
-            return newMes;
-        });
-    };
 
     const contextValue = {
         messageColor,
@@ -92,8 +57,8 @@ export const Router = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/profile" element={<Profile />} />
-                    <Route path="/chats" element={<ChatList onDeleteChat={handleDeleteChat} onAddChat={handleAddChat} chats={chatList} />}>
-                        <Route path=":chatId" element={<Chat messages={messages} addMessage={handleAddMessage} />} />
+                    <Route path="/chats" element={<ChatList />}>
+                        <Route path=":chatId" element={<Chat />} />
                     </Route>
                     <Route path="*" element={<h2>Упс! Что-то не так! 404</h2>} />
                     {/* <Route path="/profile" element={<Profile />} /> */}
