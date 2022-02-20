@@ -6,7 +6,7 @@ import { Formnew } from "../Formnew";
 import { Navigate, useParams } from "react-router-dom";
 import { selectMessages } from "../../store/messages/selector";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../../store/messages/actions";
+import { addMessage, AddMessageWithThunk } from "../../store/messages/actions";
 
 
 export function Chat() {
@@ -29,17 +29,19 @@ export function Chat() {
             author,
             id: `mes - ${Date.now()}`,
         };
-        dispatch(addMessage(chatId, newMes));
+        dispatch(AddMessageWithThunk(chatId, newMes));
     };
 
     useEffect(() => {
-        let timeout;
-        if (messages[chatId]?.[messages[chatId]?.length - 1]?.author === AUTHORS.ME) {
-            timeout = setTimeout(() => {
-                sendMessage("Hey Human", AUTHORS.BOT);
-            }, 1200)
-        };
-        return () => clearTimeout(timeout);
+        // messageEnd.current?.scrollIntoView();
+
+        // let timeout;
+        // if (messages[chatId]?.[messages[chatId]?.length - 1]?.author === AUTHORS.ME) {
+        //     timeout = setTimeout(() => {
+        //         sendMessage("Hey Human", AUTHORS.BOT);
+        //     }, 1200)
+        // };
+        // return () => clearTimeout(timeout);
     }, [messages]);
 
     if (!messages[chatId]) {
