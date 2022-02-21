@@ -24,6 +24,6 @@ export const Formnew = ({ onSubmit }) => {
             <Button variant="contained">
                 <span>Отправить послание</span>
             </Button>
-        </ form>
+        </ form >
     );
 };
