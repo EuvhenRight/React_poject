@@ -5,12 +5,12 @@ import { deleteChat } from "../../store/chats/actions";
 
 
 export const DeleteButton = ({ id }) => {
-    const dispatch = useDispatch;
+    const dispatch = useDispatch();
 
     const handleDeleteChat = () => {
         dispatch(deleteChat(id));
 
     };
 
-    return <div onClick={handleDeleteChat}>Удалить</div>;
+    return <button onClick={handleDeleteChat}>Удалить</button>;
 };
