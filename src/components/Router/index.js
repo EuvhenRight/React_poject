@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addChat, deleteChat } from "../../store/chats/actions";
 import { selectMessages } from "../../store/messages/selector";
 import { addMessage } from "../../store/messages/actions";
+import { Articles } from "../Articles/Articles";
 
 
 const Home = () => <h2>HOME PAGE</h2>;
@@ -48,6 +49,9 @@ export const Router = () => {
                     <NavLink to="/" style={({ isActive }) => ({ color: isActive ? "red" : "black" })}>home</NavLink>
                 </div>
                 <div>
+                    <NavLink to="/articles" style={({ isActive }) => ({ color: isActive ? "red" : "black" })}>articles</NavLink>
+                </div>
+                <div>
                     <NavLink to="/chats" style={({ isActive }) => ({ color: isActive ? "red" : "black" })}>chats</NavLink>
                 </div>
                 <div>
@@ -56,6 +60,7 @@ export const Router = () => {
 
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="articles" element={<Articles />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/chats" element={<ChatList />}>
                         <Route path=":chatId" element={<Chat />} />
