@@ -65,7 +65,7 @@ export const ProfileToConnect = () => {
     };
 
     useEffect(() => {
-        const unsubscribeName = onValue(getprofileNameRef, (snapshot) => {
+        const unsubscribeName = onValue(getprofileNameRef(), (snapshot) => {
             setName(snapshot.val());
         });
         const unsubscribeShowName = onValue(profileShowNameRef, (snapshot) => {
